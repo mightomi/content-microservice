@@ -1,0 +1,90 @@
+version: "3"
+services:
+
+  client:
+    build: 
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    networks:
+      - mern-network
+    volumes:
+      - ./client/src:/usr/src/app/src
+      - ./client/public:/usr/src/app/public
+    depends_on:
+      - server
+    environment:
+      - REACT_APP_SERVER=http://localhost:8000
+      - CHOKIDAR_USEPOLLING=true
+    command: npm start
+    stdin_open: true
+    tty: true
+  
+  server:
+    build:
+      context: ./server/apiGateway
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    networks:
+      - mern-network
+    volumes:
+      - ./server/src:/usr/src/app/src
+    depends_on:
+      - db
+    environment:
+      - MONGO_URL=mongodb://db:27017
+      - CLIENT=http://localhost:3000
+    command: /usr/src/app/node_modules/.bin/nodemon -L src/index.js
+
+  content:
+    build:
+      context: ./server/content
+      dockerfile: Dockerfile
+    ports:
+      - 8002:8002
+    networks:
+      - mern-network
+    volumes:
+      - ./server/src:/usr/src/app/src
+    depends_on:
+      - db
+    environment:
+      - MONGO_URL=mongodb://db:27017
+      # - CLIENT=http://localhost:3000
+    command: /usr/src/app/node_modules/.bin/nodemon -L src/index.js
+
+  user:
+    build:
+      context: ./server/user
+      dockerfile: Dockerfile
+    ports:
+      - 8001:8001
+    networks:
+      - mern-network
+    volumes:
+      - ./server/src:/usr/src/app/src
+    depends_on:
+      - db
+    environment:
+      - MONGO_URL=mongodb://db:27017
+      # - CLIENT=http://localhost:3000
+    command: /usr/src/app/node_modules/.bin/nodemon -L src/index.js
+
+  db:
+    image: mongo:3.6.19-xenial
+    ports:
+      - 27017:27017
+    networks:
+      - mern-network
+    volumes:
+      - mongo-data:/data/db
+
+networks:
+  mern-network:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local

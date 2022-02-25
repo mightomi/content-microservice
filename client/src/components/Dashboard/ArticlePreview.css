@@ -1,0 +1,27 @@
+.wrapper {
+    /* min-width: 70%;
+    max-width: 70%; */
+
+    width: 70%;
+    /* max-width: 800px; */
+    /* max-height: 100px; */
+
+    justify-content: center;
+    align-items: center;
+    
+    border-color:rgb(0, 0, 0);
+    border-style: solid;
+    border-width: 2px;
+
+    margin-bottom: 10px;
+
+    padding: 10px;
+}
+
+.contentStory {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    -webkit-box-orient: vertical;
+}
