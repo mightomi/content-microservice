@@ -9,19 +9,15 @@ services:
       - 3000:3000
     networks:
       - mern-network
-    volumes:
-      - ./client/src:/usr/src/app/src
-      - ./client/public:/usr/src/app/public
+
     depends_on:
-      - server
-    environment:
-      - REACT_APP_SERVER=http://localhost:8000
-      - CHOKIDAR_USEPOLLING=true
+      - apigateway
+
     command: npm start
     stdin_open: true
     tty: true
   
-  server:
+  apigateway:
     build:
       context: ./server/apiGateway
       dockerfile: Dockerfile
@@ -29,14 +25,15 @@ services:
       - 8000:8000
     networks:
       - mern-network
-    volumes:
-      - ./server/src:/usr/src/app/src
+
     depends_on:
       - db
-    environment:
-      - MONGO_URL=mongodb://db:27017
-      - CLIENT=http://localhost:3000
-    command: /usr/src/app/node_modules/.bin/nodemon -L src/index.js
+      - content
+      - user
+    # environment:
+      # - MONGO_URL=mongodb://db:27017
+      # - CLIENT=http://localhost:3000
+    # command: /usr/src/app/node_modules/.bin/nodemon -L src/index.js
 
   content:
     build:
@@ -46,14 +43,13 @@ services:
       - 8002:8002
     networks:
       - mern-network
-    volumes:
-      - ./server/src:/usr/src/app/src
+
     depends_on:
       - db
     environment:
-      - MONGO_URL=mongodb://db:27017
+      - MONGODB_URL=mongodb://db:27017
       # - CLIENT=http://localhost:3000
-    command: /usr/src/app/node_modules/.bin/nodemon -L src/index.js
+    # command: /usr/src/app/node_modules/.bin/nodemon -L src/index.js
 
   user:
     build:
@@ -63,14 +59,13 @@ services:
       - 8001:8001
     networks:
       - mern-network
-    volumes:
-      - ./server/src:/usr/src/app/src
+
     depends_on:
       - db
     environment:
-      - MONGO_URL=mongodb://db:27017
+      - MONGODB_URL=mongodb://db:27017
       # - CLIENT=http://localhost:3000
-    command: /usr/src/app/node_modules/.bin/nodemon -L src/index.js
+    # command: /usr/src/app/node_modules/.bin/nodemon -L src/index.js
 
   db:
     image: mongo:3.6.19-xenial

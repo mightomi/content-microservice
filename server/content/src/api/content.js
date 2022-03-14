@@ -12,6 +12,7 @@ module.exports = (app) => {
      *        description: Successfully return the data
      */
     app.get("/getTopContent", async (req, res, next) => {
+        console.log("got top content request");
         try {
             const { data } = await content.getTopContent();
             return res.json(data);

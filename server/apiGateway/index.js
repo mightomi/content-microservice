@@ -12,10 +12,18 @@ const StartServer = async() => {
     app.use(cors());
     app.use(express.json());
 
-    app.use('/user', proxy('http://localhost:8001'))
-    app.use('/content', proxy('http://localhost:8002'))
-    // app.use('/', proxy('http://localhost:8001'))
+    // app.use('/user', function(req, res){
+    //   console.log("got post");
+    // })
 
+    // app.use('/content', function(req, res){
+    //   console.log("got post");
+    //   proxy('http://localhost:8002')
+    // })
+    
+    app.use('/user', proxy('http://user:8001'))
+    app.use('/content', proxy('http://content:8002'))
+    // app.use('/', proxy('http://localhost:8001'))
 
     const swaggerOptions = {
         swaggerDefinition: {
@@ -26,7 +34,7 @@ const StartServer = async() => {
             contact: {
               name: "swaastick"
             },
-            servers: ["http://localhost:8000"]
+            servers: ["http://apigateway:8000"]
           }
         },
         // apis: ['*.js']

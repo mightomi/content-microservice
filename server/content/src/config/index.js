@@ -6,6 +6,6 @@ dotEnv.config();
 module.exports = {
 
     PORT: process.env.PORT,
-    DB_URL: process.env.MONGODB_URL,
+    DB_URL: `${process.env.MONGODB_URL}/${process.env.COLLECTION_NAME}`,
     APP_SECRET: process.env.APP_SECRET
 }
