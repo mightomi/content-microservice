@@ -23,7 +23,7 @@ const start = () => {
     // listen to user API
     user(app);
 
-
+    // swagger config
     const swaggerOptions = {
         swaggerDefinition: {
           info: {
@@ -36,10 +36,9 @@ const start = () => {
             servers: ["http://localhost:8001"]
           }
         },
-        // apis: ['*.js']
         apis: ["./src/api/user.js"]
     };
-      
+    
     const swaggerDocs = swaggerJsDoc(swaggerOptions);
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 

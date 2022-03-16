@@ -1,15 +1,20 @@
 const content = require("../apiServices/content");
 const userAuth = require("./middleware/auth");
 
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+
 module.exports = (app) => {
+
     /**
      * @swagger
-     * /content/getTopContent:
-     *    get:
-     *      description: Get all the content sorted by likes
-     *    responses:
-     *      '200':
-     *        description: Successfully return the data
+     * paths: 
+     *   /content/getTopContent
+     *     get:
+     *       description: Get all the content sorted by likes
+     *     responses:
+     *       '200':
+     *          description: Successfully return the data
      */
     app.get("/getTopContent", async (req, res, next) => {
         console.log("got top content request");
@@ -23,7 +28,7 @@ module.exports = (app) => {
 
     /**
      * @swagger
-     * /content/getContentById:
+     * /content/getContentById/{:id}:
      *    post:
      *      description: Get full content of the post with given id
      *    parameters:
@@ -80,6 +85,11 @@ module.exports = (app) => {
         } catch (err) {
             next(err);
         }
+    });
+
+
+    app.post('/postContentCSV', upload.single('csvFile'), async (req, res, next) => {
+        console.log("csv post route");
     });
 
     /**

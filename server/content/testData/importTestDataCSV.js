@@ -1,10 +1,10 @@
-const database = require("../src/database/database");
+// const database = require("../src/database/database");
 const content = require("../src/apiServices/content");
 
 const csv = require("csv-parser");
 const fs = require("fs");
 
-database.init();
+// database.init();
 
 fs.createReadStream(__dirname + "/contentData.csv")
     .pipe(csv())

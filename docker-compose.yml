@@ -76,6 +76,20 @@ services:
     volumes:
       - mongo-data:/data/db
 
+  # swagger-ui:
+  #  image: swaggerapi/swagger-ui
+  #  container_name: swagger_ui_container
+  #  ports:
+  #     - "7000:7000"
+  #  volumes:
+  #     - ./swagger:/usr/share/nginx/html/swagger
+  #  environment:
+  #     API_URL: swagger/api.yaml
+  #     URLS_PRIMARY_NAME: "CheckServer"
+  #     URLS: "[{ url: 'doc/openapi.yaml', name: 'UserManagement'},
+  #         { url: 'doc/checkapi.yaml', name: 'CheckServer'},
+  #       ]"
+
 networks:
   mern-network:
     driver: bridge
