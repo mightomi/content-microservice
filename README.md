@@ -3,16 +3,16 @@
 Dockerized backend microservices in Nodejs, with a simple RectJs Frontend
 API-Endpoints includes: 
 
-User microservice:
-1. login
-2. signup
+User microservice API endpoint:
+1. /login
+2. /signup
 
-Content microservice: 
-1. getTopContent
-2. getContentById
-3. postContent
-4. PostContentCSV
-5. postLiked
+Content microservice API endpoint:
+1. /getTopContent
+2. /getContentById
+3. /postContent
+4. /PostContentCSV
+5. /postLiked
 
 
 ## Tech-Stack
