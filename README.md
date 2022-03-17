@@ -1,7 +1,6 @@
 # content-microservice
 
 Dockerized backend microservices in Nodejs, with a simple RectJs Frontend
-API-Endpoints includes: 
 
 User microservice API endpoint:
 1. /login
