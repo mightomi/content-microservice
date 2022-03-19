@@ -27,15 +27,16 @@ const start = () => {
     // swagger config
     const swaggerOptions = {
         swaggerDefinition: {
-        info: {
-            version: "1.1.0",
-            title: "API docs",
-            description: "User API Information",
-            contact: {
-            name: "swaastick"
-            },
-            servers: ["http://content:8002"]
-        }
+            openapi: '3.0.0',
+            info: {
+                version: "1.0.0",
+                title: "Content API docs",
+                description: "Content API Information",
+                contact: {
+                    name: "swaastick"
+                },
+                servers: ["http://content:8002"]
+            }
         },
         apis: ["./src/api/content.js"]
     };
